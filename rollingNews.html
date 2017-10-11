@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+     <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <title>新闻滚动条</title>
+    <style>
+        body,
+        html,
+        div,
+        p,
+        ul,
+        li {
+        	margin: 0;
+        	padding: 0;
+        }
+        
+        a {
+        	text-decoration: none;
+        	color: #333333;
+        }
+        
+        .wrap {
+        	min-height: 500px;
+        	width: 50%;
+        	background: #00AEEF;
+        	display: block;
+        	position: absolute;
+        	transform: translateX(-100%);
+        	transition: all .3s linear;
+        	z-index: 10;
+        }
+        
+        .show {
+        	transform: translateX(0px);
+        }
+        
+        .btn {
+        	width: 80px;
+        	text-align: center;
+        	line-height: 20px;
+        	float: right;
+        	margin: 10px;
+        	border-radius: 2px;
+        }
+        
+        .mask {
+        	background: rgba(0, 0, 0, 0.3);
+        	z-index: 5;
+        	height: 500px;
+        	width: 100%;
+        	display: none;
+        	position: absolute;
+        }
+        
+        .window,.window2 {
+        	height: 30px;
+        	width: 96%;
+        	overflow: hidden;
+        	border: 1px solid #333333;
+        	margin:20% 1%;
+        }
+        /*.newsList {
+        	width: 300px;
+        	background: #00AEEF;
+        	transition: .3s;
+        	animation: move .3s infinite;
+        	-webkit-animation: move 1s infinite;
+        }
+        
+        @keyframes move {
+        	from {
+        		transform: translateY(0);
+        	}
+        	to {
+        		transform: translateY(-30px);
+        	}
+        }
+		尝试css动画实现,未果*/
+        
+        .newsList,.newsList2 {
+        	width: 100%;
+        }
+        
+        .tra {
+        	transform: translateY(-30px);
+        	transition: .5s;
+        }
+        .tra2{
+        	transform: translateX(-100%);
+        	transition: .5s;
+        }
+        .newsList li {
+        	height: 30px;
+        	width: 100%;
+        	list-style: none;
+        	line-height: 30px;
+        	text-align: center;
+        }
+        .newsList2 li {
+        	height: 30px;
+        	width: 100%;
+        	list-style: none;
+        	line-height: 30px;
+        	text-align: center;
+        	float: left;
+        }
+      </style>
+</head>
+<body>
+	<div class="mask"></div>
+    <div class="wrap">
+     	<p style="text-align: center;margin-top: 10px;">新闻滚动条</p>
+     	<div class="window">
+         <ul class="newsList">
+	        <li>
+	        	<a href="https://github.com/Dantyli">Dantyli is very good</a>
+	        </li>
+	        <li>
+	        	<a href="https://github.com/Dantyli">Yeah,he is handsome</a>
+	        </li>
+	        <li>
+	        	<a href="https://github.com/Dantyli">All Right</a>
+	        </li>
+	        <li>
+	        	<a href="https://github.com/Dantyli">Six Six Six</a>
+	        </li>
+	     </ul> 
+        </div>
+        <div class="window2">
+         <ul class="newsList2">
+	        <li>
+	        	<a href="https://github.com/Dantyli">Dantyli is very good</a>
+	        </li>
+	        <li>
+	        	<a href="https://github.com/Dantyli">Yeah,he is handsome</a>
+	        </li>
+	        <li>
+	        	<a href="https://github.com/Dantyli">All Right</a>
+	        </li>
+	        <li>
+	        	<a href="https://github.com/Dantyli">Six Six Six</a>
+	        </li>
+	     </ul> 
+        </div>
+    </div>
+    <button class="btn">click me</button> 
+</body>
+<script>
+	$('button').on('click', function() {
+		$('.wrap').toggleClass('show');
+		$('.mask').toggle();
+	});
+	$('.mask').on('click', function() {
+		$('button').trigger('click');
+	})
+	var timer = setInterval(function() {
+			$('.newsList').addClass('tra');
+			$('.newsList2').addClass('tra2');
+			setTimeout(function() {
+				$('.newsList').removeClass('tra');
+				$('.newsList').append($('.newsList li:eq(0)'));
+				$('.newsList2').removeClass('tra2');
+				$('.newsList2').append($('.newsList2 li:eq(0)'));
+			},500)
+		}, 1500);
+</script>
+</html>
