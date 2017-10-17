@@ -137,6 +137,52 @@
         .active {
         	color: #fff !important;
         }
+        .lrz {
+        	margin:20px 10px;
+        	text-align: center;
+        	border-left: 1px solid #333;
+        	border-right: 1px solid #333;
+        	padding: 0 2px;
+        }
+        
+        .lrz span:nth-of-type(1) {
+        	text-align: left;
+        	width: 35%;
+        	float: left;
+        }
+        
+        .lrz span:nth-of-type(2) {
+        	text-align: center;
+        	width: 10%;
+        	background: #fff;
+        	border-radius: 2px;
+        	cursor: pointer;
+        }
+        
+        .lrz span:nth-of-type(3) {
+        	text-align: right;
+        	width: 35%;
+        	float: right;
+        }
+        
+        .anim-wipeIn {
+        	transition: all 0.3s ease-out;
+        	transform: translate3d(0, 0, 0);
+        }
+        
+        .out-to-left {
+        	transition: all 0.3s ease-in;
+        	opacity: 1;
+        	transform: translate3d(-120%, 0, 0);
+        	-webkit-transform: translate3d(-120%, 0, 0)
+        }
+        
+        .out-to-right {
+        	transition: all 0.3s ease-in;
+        	opacity: 1;
+        	transform: translate3d(120%, 0, 0);
+        	-webkit-transform: translate3d(120%, 0, 0)
+        }
       </style>
 </head>
 <body>
@@ -183,39 +229,11 @@
 		  <li>news5</li>
 		  <div class="move"></div>
 		</ul>
+		<p class="lrz"><span class="anim-wipeIn">北京</span><span class="tab">切换</span><span class="anim-wipeIn">深圳</span></p>
     </div>
     <button class="btn">click me</button> 
 </body>
 <script>
-	$('button').on('click', function() {
-		$('.wrap').toggleClass('show');
-		$('.mask').toggle();
-	});
-	$('.mask').on('click', function() {
-		$('button').trigger('click');
-	})
-	var timer = setInterval(function() {
-			$('.newsList').addClass('tra');
-			$('.newsList2').addClass('tra2');
-			setTimeout(function() {
-				$('.newsList').removeClass('tra');
-				$('.newsList').append($('.newsList li:eq(0)'));
-				$('.newsList2').removeClass('tra2');
-				$('.newsList2').append($('.newsList2 li:eq(0)'));
-			},500)
-		}, 1500);
-	$('.titleCon').on('mouseover','li',function(){
-		var distance=Number($(this).index()-$('.active').index())*100;
-		$('.move').css('transform','translateX('+distance+'%)');
-	})
-	$('.titleCon').on('mouseleave',function(){
-		$('.move').css('transform','translateX(0px)');
-	})
-	$('.titleCon li').click(function(){
-		$(this).addClass('active').siblings('li').removeClass('active');
-		var distance=Number($(this).index())*20;
-		$('.move').css('left',distance+'%');
-		$('.move').css('transform','translateX(0px)');
-	})
+	$("button").on("click",function(){$(".wrap").toggleClass("show");$(".mask").toggle()});$(".mask").on("click",function(){$("button").trigger("click")});var timer=setInterval(function(){$(".newsList").addClass("tra");$(".newsList2").addClass("tra2");setTimeout(function(){$(".newsList").removeClass("tra");$(".newsList").append($(".newsList li:eq(0)"));$(".newsList2").removeClass("tra2");$(".newsList2").append($(".newsList2 li:eq(0)"))},500)},1500);$(".titleCon").on("mouseover","li",function(){var distance=Number($(this).index()-$(".active").index())*100;$(".move").css("transform","translateX("+distance+"%)")});$(".titleCon").on("mouseleave",function(){$(".move").css("transform","translateX(0px)")});$(".titleCon li").click(function(){$(this).addClass("active").siblings("li").removeClass("active");var distance=Number($(this).index())*20;$(".move").css("left",distance+"%");$(".move").css("transform","translateX(0px)")});$(".tab").on("click",function(){var start=$(".lrz span:eq(0)").html();var end=$(".lrz span:eq(2)").html();$(".lrz span:eq(0)").addClass("out-to-right");$(".lrz span:eq(2)").addClass("out-to-left");setTimeout(function(){$(".lrz span:eq(0)").removeClass("out-to-right");$(".lrz span:eq(2)").removeClass("out-to-left");$(".lrz span:eq(0)").html(end);$(".lrz span:eq(2)").html(start)},300)});
 </script>
 </html>
